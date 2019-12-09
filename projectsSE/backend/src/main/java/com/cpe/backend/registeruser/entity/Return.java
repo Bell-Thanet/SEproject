@@ -22,8 +22,9 @@ public class Return {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="Return_seq")
     
     private @NonNull Long return_id;
-    private @NonNull Date timeReturn;
-
+    // private @NonNull Date timeReturn;
+    private @NonNull String a;
+    private @NonNull String b;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
     @JoinColumn(name = "Status_ID", insertable = true)

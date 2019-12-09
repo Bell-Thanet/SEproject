@@ -1,9 +1,13 @@
 package com.cpe.backend;
 
 import com.cpe.backend.registeruser.entity.Employee;
+import com.cpe.backend.registeruser.entity.Member;
 import com.cpe.backend.registeruser.entity.Status;
+import com.cpe.backend.registeruser.entity.Return;
 import com.cpe.backend.registeruser.repository.StatusRepository;
 import com.cpe.backend.registeruser.repository.EmployeeRepository;
+import com.cpe.backend.registeruser.repository.MemberRepository;
+import com.cpe.backend.registeruser.repository.ReturnRepository;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +24,7 @@ public class BackendApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(StatusRepository statusRepository, EmployeeRepository employeeRepository) {
+	ApplicationRunner init(StatusRepository statusRepository, EmployeeRepository employeeRepository, MemberRepository memberRepository) {
 		return args -> {
 			
 			Stream.of("ปรกติ", "เสียหาย").forEach(name -> {
@@ -34,6 +38,12 @@ public class BackendApplication {
 				employee.setName(name);
 				employeeRepository.save(employee);
 			});
+			Stream.of(1).forEach(name -> {
+				Member member = new Member();
+				member.setName(name);
+				memberRepository.save(member);
+			});
+
 
 			
 			// Stream.of("บริษัท", "มือถือ", "โทรศัพท์บ้าน").forEach(name -> {
