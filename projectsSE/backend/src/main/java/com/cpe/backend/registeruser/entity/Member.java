@@ -31,4 +31,8 @@ public class Member {
 	//mappedBy  = "member"
 	private Collection<Return> member;
 
+	public void setName(long name) {
+		this.id = name;
+	}
+
 }

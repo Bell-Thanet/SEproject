@@ -12,6 +12,6 @@ import java.util.Collection;
 @RepositoryRestResource
 public interface ReturnRepository extends JpaRepository<Return, Long> {
     Return findById(long id);
-    // @Query( value = "SELECT * FROM User z WHERE z.email = :email and z.password = :password",nativeQuery = true)
-    // Collection<Return> findCheck(@Param("email") String email,@Param("password") String password);
+    @Query( value = "SELECT * FROM Return z WHERE z.a = :email",nativeQuery = true)
+    Collection<Return> findCheck(@Param("email") String email);
 }
