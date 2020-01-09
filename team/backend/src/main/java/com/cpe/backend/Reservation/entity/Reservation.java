@@ -32,10 +32,10 @@ public class Reservation{
     private @NonNull Date date;
 
     @Column(name = "Start_time")
-    private @NonNull Data Start_time;
+    private @NonNull Time Start_time;
 
     @Column(name = "End_time")
-    private @NonNull Data End_time;
+    private @NonNull Time End_time;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Fieldtype.class)
     @JoinColumn(name = "Fieldtype_id", insertable = true)
@@ -56,5 +56,13 @@ public class Reservation{
     @JoinColumn(name = "emp_id", insertable = true)
     @JsonManagedReference
     private  Employee employee;
+
+	public void setStart_time(Time start_time2) {
+        this.Start_time = start_time2;
+	}
+
+	public void setEnd_time(Time end_time2) {
+        this.End_time = end_time2;
+	}
 	
 }

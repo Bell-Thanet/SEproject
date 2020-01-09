@@ -135,11 +135,11 @@ export default {
     ShowReturn_id() {
       http
         // .get("/check/" + this.returns.return_id)
-        .get("/return/" + this.returns.return_id)
+        .get("/Members/" + this.returns.return_id)
         .then(response => {
           console.log(response);
           if (response.data != null) {
-            this.name = response.data.status.statuss;
+            this.name = response.data.name;
             this.CheckID = response.status;
             alert("มี");
           } else {

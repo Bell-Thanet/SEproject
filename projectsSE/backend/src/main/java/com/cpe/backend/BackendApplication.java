@@ -1,13 +1,18 @@
 package com.cpe.backend;
 
-import com.cpe.backend.registeruser.entity.Employee;
-import com.cpe.backend.registeruser.entity.Member;
-import com.cpe.backend.registeruser.entity.Status;
-import com.cpe.backend.registeruser.entity.Return;
-import com.cpe.backend.registeruser.repository.StatusRepository;
-import com.cpe.backend.registeruser.repository.EmployeeRepository;
-import com.cpe.backend.registeruser.repository.MemberRepository;
-import com.cpe.backend.registeruser.repository.ReturnRepository;
+import com.cpe.backend.Returns.entity.Employee;
+import com.cpe.backend.Returns.entity.Status;
+import com.cpe.backend.Returns.entity.Return;
+import com.cpe.backend.Returns.repository.StatusRepository;
+import com.cpe.backend.Returns.repository.EmployeeRepository;
+import com.cpe.backend.Returns.repository.ReturnRepository;
+
+import com.cpe.backend.Members.entity.Nametype;
+import com.cpe.backend.Members.entity.Gender;
+import com.cpe.backend.Members.entity.Province;
+import com.cpe.backend.Members.repository.GenderRepository;
+import com.cpe.backend.Members.repository.NametypeRepository;
+import com.cpe.backend.Members.repository.ProvinceRepository;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,9 +29,11 @@ public class BackendApplication {
 	}
 
 	@Bean
-	ApplicationRunner init(StatusRepository statusRepository, EmployeeRepository employeeRepository, MemberRepository memberRepository) {
+	ApplicationRunner init(StatusRepository statusRepository, EmployeeRepository employeeRepository,
+			 ProvinceRepository provinceRepository,
+			NametypeRepository nametypeRepository, GenderRepository genderRepository) {
 		return args -> {
-			
+
 			Stream.of("ปรกติ", "เสียหาย").forEach(name -> {
 				Status status = new Status();
 				status.setName(name);
@@ -38,30 +45,49 @@ public class BackendApplication {
 				employee.setName(name);
 				employeeRepository.save(employee);
 			});
-			Stream.of(1).forEach(name -> {
-				Member member = new Member();
-				member.setName(name);
-				memberRepository.save(member);
+			Stream.of("นาย", "นาง", "นางสาว").forEach(name -> {
+				Nametype nameType = new Nametype();
+				nameType.setNametype(name);
+				nametypeRepository.save(nameType);
 			});
 
+			Stream.of("ชาย", "หญิง").forEach(name -> {
+				Gender gender = new Gender();
+				gender.setGender(name);
+				genderRepository.save(gender);
+			});
 
-			
+			Stream.of("กรุงเทพมหานคร", "กระบี่", "กาญจนบุรี", "กาฬสินธุ์", "กำแพงเพชร", "ขอนแก่น", "จันทบุรี",
+					"ฉะเชิงเทรา", "ชัยนาท", "ชัยภูมิ", "ชุมพร", "ชลบุรี", "เชียงใหม่", "เชียงราย", "ตรัง", "ตราด",
+					"ตาก", "นครนายก", "นครปฐม", "นครพนม", "นครราชสีมา", "นครศรีธรรมราช", "นครสวรรค์", "นราธิวาส",
+					"น่าน", "นนทบุรี", "บึงกาฬ", "บุรีรัมย์", "ประจวบคีรีขันธ์", "ปทุมธานี", "ปราจีนบุรี", "ปัตตานี",
+					"พะเยา", "พระนครศรีอยุธยา", "พังงา", "พิจิตร", "พิษณุโลก", "เพชรบุรี", "เพชรบูรณ์", "แพร่",
+					"พัทลุง", "ภูเก็ต", "มหาสารคาม", "มุกดาหาร", "แม่ฮ่องสอน", "ยโสธร", "ยะลา", "ร้อยเอ็ด", "ระนอง",
+					"ระยอง", "ราชบุรี", "ลพบุรี", "ลำปาง", "ลำพูน", "เลย", "ศรีสะเกษ", "สกลนคร", "สงขลา", "สมุทรสาคร",
+					"สมุทรปราการ", "สมุทรสงคราม", "สระแก้ว", "สระบุรี", "สิงห์บุรี", "สุโขทัย", "สุพรรณบุรี",
+					"สุราษฎร์ธานี", "สุรินทร์", "สตูล", "หนองคาย", "หนองบัวลำภู", "อำนาจเจริญ", "อุดรธานี", "อุตรดิตถ์",
+					"อุทัยธานี", "อุบลราชธานี", "อ่างทอง"
+
+			).forEach(name -> {
+				Province province = new Province();
+				province.setProvince(name);
+				provinceRepository.save(province);
+			});
+
 			// Stream.of("บริษัท", "มือถือ", "โทรศัพท์บ้าน").forEach(name -> {
-			// 	PhoneType phonetype = new PhoneType();
-			// 	phonetype.setName(name);
-			// 	phonetypeRepository.save(phonetype);
+			// PhoneType phonetype = new PhoneType();
+			// phonetype.setName(name);
+			// phonetypeRepository.save(phonetype);
 			// });
 
 			// Stream.of("นาย", "นาง","นางสาว").forEach(name -> {
-			// 	NameType nameType = new NameType();
-			// 	nameType.setName(name);
-			// 	nametypeRepository.save(nameType);
+			// NameType nameType = new NameType();
+			// nameType.setName(name);
+			// nametypeRepository.save(nameType);
 			// });
-
 
 			statusRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity Customer บน Terminal
 
-			
 		};
 	}
 
